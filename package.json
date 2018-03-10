@@ -1,0 +1,11 @@
+{
+  "name": "drunk-bot",
+  "version": "1.0.0",
+  "description": "Get the status of someone's drunkness.",
+  "main": "bot.js",
+  "author": "Andrew Robinson",
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "winston": "^3.0.0-rc2"
+  }
+}
