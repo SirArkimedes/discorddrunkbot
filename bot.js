@@ -34,15 +34,28 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 
-        args = args.splice(1);
+        var firstArg = args[1];
+
         switch(cmd) {
-            // !ping
-            case 'ping':
+            case 'drunk':
+                if (firstArg) {
+                      bot.sendMessage({
+                          to: channelID,
+                          message: firstArg + ' is probably drunk.'
+                      });
+                } else if (user == 'Ibsul' || user == 'BigChad69' || user == 'SirArkimedes') {
+                      bot.sendMessage({
+                          to: channelID,
+                          message: 'You\'re probably drunk.'
+                      });
+                }
+                break;
+            case 'commands':
                 bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-            break;
+                  to: channelID,
+                  message: '```!drunk {name} : See who is drunk \n!drunk : Are you drunk?```'
+                })
+                break;
             // Just add any case commands if you want to..
          }
      }
