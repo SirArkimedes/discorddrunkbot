@@ -1,4 +1,4 @@
-// Programmers : Jonas & Andrew
+// Programmers : Andrew Robinson & Jonas Smith
 // Date start  : 3/11/2018
 // Purpose     : We are all drunk
 //
