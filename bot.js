@@ -1,4 +1,8 @@
-var Discord = require('discord.io');
+// Programmers : Jonas & Andrew
+// Date start  : 3/11/2018
+// Purpose     : We are all drunk
+
+var Discord = require('discord.js');
 var winston = require('winston');
 var auth = require('./auth.json');
 
@@ -16,47 +20,18 @@ const logger = winston.createLogger({
 });
 
 // Initialize Discord Bot
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
+const bot = new Discord.Client();
+
+bot.on("ready", () => {
+  logger.info('Connected');
+  logger.info('Logged in as: ');
+  logger.info(bot.username + ' - (' + bot.id + ')');
 });
 
-bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
+bot.on("message", (message) => {
+  if (message.author.username == "SirArkimedes" && ) {
+    message.react("🍺")
+  }
 });
 
-bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '!') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
-
-        var firstArg = args[1];
-
-        switch(cmd) {
-            case 'drunk':
-                if (firstArg) {
-                      bot.sendMessage({
-                          to: channelID,
-                          message: firstArg + ' is probably drunk.'
-                      });
-                } else if (user == 'Ibsul' || user == 'BigChad69' || user == 'SirArkimedes') {
-                      bot.sendMessage({
-                          to: channelID,
-                          message: 'You\'re probably drunk.'
-                      });
-                }
-                break;
-            case 'commands':
-                bot.sendMessage({
-                  to: channelID,
-                  message: '```!drunk {name} : See who is drunk \n!drunk : Are you drunk?```'
-                })
-                break;
-            // Just add any case commands if you want to..
-         }
-     }
-});
+bot.login(auth.token);
