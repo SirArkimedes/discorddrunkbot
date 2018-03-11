@@ -1,5 +1,5 @@
 {
-  "name": "Drunk Bot",
+  "name": "drunk-bot",
   "version": "1.0.0",
   "description": "Get the status of someone's drunkness.",
   "main": "bot.js",
