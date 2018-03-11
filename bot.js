@@ -56,6 +56,26 @@ bot.on("message", (message) => {
       if(list[cmdArray[1]] == true){
         message.channel.send(cmdArray[1] + " is DRUNK! 🍺🍺🍺🍺");
       }
+
+      // Set the game of the bot.
+      var status = "";
+      for (key in list) {
+        if (list[key] == true) {
+          console.log(status + " " + key)
+          status = status + key + ", ";
+        }
+      }
+
+      if (status == "") {
+        status = "no one";
+      } else {
+        status = status.substring(0, status.length - 2);
+      }
+      console.log(status);
+
+      bot.user.setPresence( { game: { name: "drunk with " + status + "!"}, status: "online" } )
+        .then(console.log)
+        .catch(console.error);
     }
   });
 
