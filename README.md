@@ -35,5 +35,5 @@
 * Thanks for checking it out!
 
 <p align="center">
-  Made with ❤️ by [SirArkimedes](https://github.com/SirArkimedes) and [JonasESmith](https://github.com/JonasESmith).
+  Made with ❤️ by  <a href="https://github.com/SirArkimedes">SirArkimedes</a> and <a href="https://github.com/JonasESmith">JonasESmith</a>.
 </p>
