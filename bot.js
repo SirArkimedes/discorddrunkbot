@@ -7,6 +7,7 @@ var winston = require('winston');
 var auth = require('./auth.json');
 
 var userDict = { };
+const bot = new Discord.Client();
 
 const logger = winston.createLogger({
   level: 'info',
@@ -21,14 +22,9 @@ const logger = winston.createLogger({
   ]
 });
 
-// Initialize Discord Bot
-//
-const bot = new Discord.Client();
-
+// Called when bot get created.
 bot.on("ready", () => {
-  logger.info('Connected');
-  logger.info('Logged in as: ');
-  logger.info(bot.username + ' - (' + bot.id + ')');
+  logger.info("Starting server. Bot was ready at: " + bot.readyAt)
 });
 
 // Checking message for drunk status and !set cmd
@@ -40,20 +36,20 @@ bot.on("message", (message) => {
 
   // react with 🍺 if drunk = true
   //
-  if(userDict[sender] == true && !message.content.startsWith("!set")){
+  if (userDict[sender] == true && !message.content.startsWith("!set")){
     message.react("🍺")
   }
 
   // command to add/remove drunk status from dict. & display discord bot message
   //
-  if(message.content.startsWith("!set") && (sender == "SirArkimedes" || sender == "VOXEL")) {
+  if (message.content.startsWith("!set") && (sender == "SirArkimedes" || sender == "VOXEL")) {
       var cmdArray = message.content.split(" ");
 
       userDict[cmdArray[1]] = cmdArray[2] == "true" ? true : false;
 
       // Message is displayed when user is "LIT"
       //
-      if(userDict[cmdArray[1]] == true){
+      if (userDict[cmdArray[1]] == true){
         message.channel.send(cmdArray[1] + " is DRUNK! 🍺🍺🍺🍺");
       }
 
@@ -61,7 +57,6 @@ bot.on("message", (message) => {
       var status = "";
       for (key in userDict) {
         if (userDict[key] == true) {
-          console.log(status + " " + key)
           status = status + key + ", ";
         }
       }
@@ -71,11 +66,14 @@ bot.on("message", (message) => {
       } else {
         status = status.substring(0, status.length - 2);
       }
-      console.log(status);
 
       bot.user.setPresence( { game: { name: "drunk with " + status + "!"}, status: "online" } )
-        .then(console.log)
-        .catch(console.error);
+        .then(function(user) {
+          logger.info("User status set to: " + user.presence.game.name);
+        })
+        .catch(function(error) {
+          logger.error(error.toString());
+        });
     }
   });
 
