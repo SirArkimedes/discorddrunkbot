@@ -3,8 +3,9 @@
 </p>
 
 # Discord Drunk Bot
-* Inform your guild-mates who is drunk or not. :beer:
-* Watch laughter ensue! :beers:
+* Inform your guild-mates who is drunk or not. :beers:
+* When a drunk person types, the bot will react with :beer:.
+* Listen to laughter ensue! :laughing:
 
 # How to run
 ### Requirement
@@ -14,12 +15,16 @@
 1. Run `npm install`.
 2. Create a bot with Discord  [here](https://discordapp.com/developers/applications/me).
 3. Invite the newly created bot to a server with this link, replacing CLIENT with your bot's client ID: https://discordapp.com/oauth2/authorize?client_id=CLIENT&scope=bot
-3. Copy the bot's token.
-4. Create a `auth.json` file in the root folder with the following format:
+4. Copy the bot's token.
+5. Create a `auth.json` file in the root folder with the following format:
   ` {
       token: "YOUR BOT TOKEN HERE"
   } `
-5. Run `node bot.js`.
+6. Run `node bot.js`.
+7. **Optional**: Modify `bot.js` to add your Discord username to the `!set` check. This only allows certain users to use the command. Restart the bot after completion.
+
+### Command
+* `!set {username}` - Toggle the username's drunk status (Requires step 7 in [Process](https://github.com/SirArkimedes/discorddrunkbot#process)).
 
 # Preview
 <p align="center">
