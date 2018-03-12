@@ -6,7 +6,7 @@ var Discord = require('discord.js');
 var winston = require('winston');
 var auth = require('./auth.json');
 
-var list = { };
+var userDict = { };
 
 const logger = winston.createLogger({
   level: 'info',
@@ -40,7 +40,7 @@ bot.on("message", (message) => {
 
   // react with 🍺 if drunk = true
   //
-  if(list[sender] == true && !message.content.startsWith("!set")){
+  if(userDict[sender] == true && !message.content.startsWith("!set")){
     message.react("🍺")
   }
 
@@ -49,18 +49,18 @@ bot.on("message", (message) => {
   if(message.content.startsWith("!set") && (sender == "SirArkimedes" || sender == "VOXEL")) {
       var cmdArray = message.content.split(" ");
 
-      list[cmdArray[1]] = cmdArray[2] == "true" ? true : false;
+      userDict[cmdArray[1]] = cmdArray[2] == "true" ? true : false;
 
       // Message is displayed when user is "LIT"
       //
-      if(list[cmdArray[1]] == true){
+      if(userDict[cmdArray[1]] == true){
         message.channel.send(cmdArray[1] + " is DRUNK! 🍺🍺🍺🍺");
       }
 
       // Set the game of the bot.
       var status = "";
-      for (key in list) {
-        if (list[key] == true) {
+      for (key in userDict) {
+        if (userDict[key] == true) {
           console.log(status + " " + key)
           status = status + key + ", ";
         }
