@@ -25,6 +25,7 @@
 
 ### Command
 * `!set {username}` - Toggle the username's drunk status (Requires step 7 in [Process](https://github.com/SirArkimedes/discorddrunkbot#process)).
+  * **Example**: `!set SirArkimedes` - Toggles SirArkimedes' drunk status.
 
 # Preview
 <p align="center">
