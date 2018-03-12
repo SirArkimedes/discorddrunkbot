@@ -40,20 +40,27 @@ bot.on("message", (message) => {
     message.react("🍺")
   }
 
-  // command to add/remove drunk status from dict. & display discord bot message
+  // command to add/remove drunk status from dict. & display discord bot message.
   //
   if (message.content.startsWith("!set") && (sender == "SirArkimedes" || sender == "VOXEL")) {
       var cmdArray = message.content.split(" ");
 
-      userDict[cmdArray[1]] = cmdArray[2] == "true" ? true : false;
+      // Toggles user status of drunk. allows for a simpler command of !set [USERNAME] 
+      //    instead of !set [USERNAME] [BOOL].
+      //
+      if(userDict[cmdArray[1]] == true) { 
+        userDict[cmdArray[1]] = false;  }
+      else                              {  
+        userDict[cmdArray[1]] = true;   }
 
-      // Message is displayed when user is "LIT"
+      // Message is displayed when user is "LIT".
       //
       if (userDict[cmdArray[1]] == true){
         message.channel.send(cmdArray[1] + " is DRUNK! 🍺🍺🍺🍺");
       }
 
-      // Set the game of the bot.
+      // Get all current "drunk" users for Game status.
+      //
       var status = "";
       for (key in userDict) {
         if (userDict[key] == true) {
@@ -61,6 +68,8 @@ bot.on("message", (message) => {
         }
       }
 
+      // Display game status.
+      //
       if (status == "") {
         status = "no one";
       } else {
@@ -78,4 +87,5 @@ bot.on("message", (message) => {
   });
 
 // Logs in the bot with the auth.token
+//
 bot.login(auth.token);
