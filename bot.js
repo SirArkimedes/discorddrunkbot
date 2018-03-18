@@ -25,6 +25,7 @@ const logger = winston.createLogger({
 // Called when bot get created.
 bot.on("ready", () => {
   logger.info("Starting server. Bot was ready at: " + bot.readyAt)
+  console.log("Server created and ready! Time when ready: " + bot.readyAt)
 });
 
 // Checking message for drunk status and !set cmd
@@ -45,12 +46,12 @@ bot.on("message", (message) => {
   if (message.content.startsWith("!set") && (sender == "SirArkimedes" || sender == "VOXEL")) {
       var cmdArray = message.content.split(" ");
 
-      // Toggles user status of drunk. allows for a simpler command of !set [USERNAME] 
+      // Toggles user status of drunk. allows for a simpler command of !set [USERNAME]
       //    instead of !set [USERNAME] [BOOL].
       //
-      if(userDict[cmdArray[1]] == true) { 
+      if(userDict[cmdArray[1]] == true) {
         userDict[cmdArray[1]] = false;  }
-      else                              {  
+      else                              {
         userDict[cmdArray[1]] = true;   }
 
       // Message is displayed when user is "LIT".
@@ -72,17 +73,23 @@ bot.on("message", (message) => {
       //
       if (status == "") {
         status = "no one";
+        bot.user.setPresence( { game: { name: "" }, status: "online" } )
+          .then(function(user) {
+            logger.info("User status set to: " + user.presence.game.name);
+          })
+          .catch(function(error) {
+            logger.error(error.toString());
+          });
       } else {
         status = status.substring(0, status.length - 2);
+        bot.user.setPresence( { game: { name: "drunk with " + status + "!"}, status: "online" } )
+          .then(function(user) {
+            logger.info("User status set to: " + user.presence.game.name);
+          })
+          .catch(function(error) {
+            logger.error(error.toString());
+          });
       }
-
-      bot.user.setPresence( { game: { name: "drunk with " + status + "!"}, status: "online" } )
-        .then(function(user) {
-          logger.info("User status set to: " + user.presence.game.name);
-        })
-        .catch(function(error) {
-          logger.error(error.toString());
-        });
     }
   });
 
